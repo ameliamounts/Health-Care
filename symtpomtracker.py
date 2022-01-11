@@ -1,12 +1,14 @@
 def main():
-
+    listOfDailyDataObjects = []
 
     class DailyTracker():
-        def __init__ (listSymptomTitles, listBehaviorTitles):
-            symptomTitles = listSymptomTitles #list of the names of the symptoms (not the data)
-            dailyActivityTitles = listBehaviorTitles #list of the behaviors (but not the data)
-            symptomData = []
-            behaviorData = []
+        def __init__ (self, listSymptomTitles, listBehaviorTitles):
+            self.symptomTitles = []
+            self.dailyActivityTitles = []
+            self.symptomTitles = listSymptomTitles #list of the names of the symptoms (not the data)
+            self.dailyActivityTitles = listBehaviorTitles #list of the behaviors (but not the data)
+            self.symptomData = []
+            self.behaviorData = []
         def addSymptomSeverity(listSymptomData, listBehaviorData):
             symptomData = listSymptomData
             behaviorData = listBehaviorData
@@ -33,20 +35,22 @@ def main():
         i=i+1
 
 
-    k=0
+
     dailyData = DailyTracker(listSymptomTitles, listBehaviorTitles)
     p=0
-    for p in dailyData.symptomTitles:
-        symptomSeverity = input("On a scale of 0-5, with 5 being the worst, was your %s today?", dailyData.symptomTitles[p])
-        dailyData.symptomData[p]=symptomSeverity
+    if (len(dailyData.symptomTitles)!=0):
+        for p in range(0, (len(dailyData.symptomTitles)-1)):
+            symptomSeverity = input("On a scale of 0-5, with 5 being the worst, was your %s today?"% p)
+            dailyData.symptomData[p] = symptomSeverity
+            p=p+1
     q=0
-    for q in dailyData.behaviorTitles[q]:
+    for q in dailyData.dailyActivityTitles[q]:
         behaviorLevel = input("Add behavior... ")
-        dailyData.behaviorData[q]=behaviorLevel
-    listOfDailyDataObjects[k]= dailyData
-    k=k+1
+        dailyData.behaviorData.append(behaviorLevel)
+    listOfDailyDataObjects.append(dailyData)
+
 
 main()
 
+#Still need to fix the UI, just trying to get the data structure to work
 
-        #this is the main loop that keeps running and adding data to the data structure, at the end we can create graphs each day as long as day is over 10??
