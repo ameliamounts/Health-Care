@@ -3,8 +3,8 @@ import numpy as np
 
 class DailyTracker():
     def __init__ (self, symptomTitles, behaviorTitles):
-        self.symptomTitles = [] #[headache, stomach ache]
-        self.dailyActivityTitles = [] #[miles walked]
+        #self.symptomTitles = [] #[headache, stomach ache]
+        #self.dailyActivityTitles = [] #[miles walked]
         self.symptomTitles = symptomTitles #list of the names of the symptoms (not the data)
         self.dailyActivityTitles = behaviorTitles #list of the behaviors (but not the data)
         self.symptomData = [] #[5, 1]
@@ -34,7 +34,7 @@ def onboarding():
         i=i+1
 
     i=0
-    singleBehavior = 0
+    singleBehavior = ""
     behaviorTitles = []
 
     while (singleBehavior != "-1"):
@@ -45,7 +45,7 @@ def onboarding():
         print()
         print()
         singleBehavior = input("what daily behaviors do you want to track (eg. hours of sleep, miles walked etc, to stop adding enter -1)? ")
-        if (singleBehavior!=-1):
+        if (singleBehavior!= "-1"):
             behaviorTitles.append(singleBehavior)
         i=i+1
 
@@ -68,8 +68,7 @@ def dailySymptomTracker(symptomTitles, behaviorTitles):
         p=0
         if (len(dailyData.symptomTitles)!=0):
             for p in range(0, (len(dailyData.symptomTitles)-1)):
-                symptomSeverity = input("On a scale of 0-5, with 5 being the \
-                worst, what was your %s today? " %dailyData.symptomTitles[p])
+                symptomSeverity = input("On a scale of 0-5, with 5 being the worst, what was your %s today? " %dailyData.symptomTitles[p])
                 if symptomSeverity.isnumeric():
                     symptomSeverity = float(symptomSeverity)
                     dailyData.symptomData.append(symptomSeverity)
@@ -86,10 +85,8 @@ def dailySymptomTracker(symptomTitles, behaviorTitles):
     return listOfDailyDataObjects
 
 def getGraphs(listOfDailyDataObjects):
-    if len(listOfDailyDataObjects) >= 3:
-        plot = input("Would you like to view plots based on the data you gave \
-        us? We will show correlations between symptoms and habits to inform you \
-        and your physician's next steps.")
+    if len(listOfDailyDataObjects) >= 3: #Only set to three for demonstration purposes.
+        plot = input("Would you like to view plots based on the data you gave us? We will show correlations between symptoms and habits to inform you and your physician's next steps.")
         if plot.upper() == 'YES':
             for symptomIndex in range(len(listOfDailyDataObjects[0].symptomData)):  # x-axis
                 for behaviorIndex in range(len(listOfDailyDataObjects[0].behaviorData)):  # y-axis
@@ -144,3 +141,35 @@ def main():
     listOfDailyDataObjects = dailySymptomTracker(symptomTitles, behaviorTitles)
     getGraphs(listOfDailyDataObjects)
 main()
+
+
+"""
+Still need to fix the UI, just trying to get the data structure to work
+onboarding edits would include making it clearer as to what to add as the data, could make a range of what the values would be between
+add a more unique prompt that uses the range of values
+add in the graphing component
+add section to save most recent graph to print again?
+can do some wireframing/mockups to include in the presentation
+
+TO DO:
+fix errors in graphing
+commment code to describe it better
+add in the type of data they are entering & overall more robust error checking
+suggestion of graphs that are more useful: when i learn about machine learning can we suggest more graphs?
+make them be able to create their own graphs
+separate into different functions so its better organized
+can i reach out to someone in CIL to see if i can get a mentor or support if i were to continue the project
+add a welcome message
+issue with downloading matplotlib and pip.... need to do more research to figure out what's going on :(
+
+Notes from 3/5/22:
+
+Fixed errors with passing data between functions
+Added comments, broke the code up into functions for readability
+
+Thought: can we change the data storage method to be a dictionary somehow to get
+linear access time? Will it matter because we need to for loop through all objects
+in the list/dict anyway?
+
+Need to upload to github
+"""
